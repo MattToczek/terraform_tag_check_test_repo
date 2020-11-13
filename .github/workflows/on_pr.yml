@@ -1,0 +1,17 @@
+on: [pull_request]
+jobs:
+  check-tags:
+    name: check-tags
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@master
+
+      - name: check-aws-tags
+        uses: dwp/aws-terraform-tag-check@v1
+        with:
+          tags: "tag1, tag2"
+          tag-map: "common_tags"
+          github-token: ${{ secrets.github_token }}
+          paths-to-terraform-dirs: "terraform/"
